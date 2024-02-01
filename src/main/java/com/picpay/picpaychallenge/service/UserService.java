@@ -16,7 +16,22 @@ public class UserService {
 
     @Transactional
     public User save(User newUser) {
+        validateIfDocumentExist(newUser.getDocument());
+        validateIfEmailExist(newUser.getEmail());
+
         return userRepository.saveAndFlush(newUser);
+    }
+
+    private void validateIfDocumentExist(String document) {
+        if (userRepository.existsByDocument(document)) {
+            throw new RuntimeException("CPF/CNPJ already registered in the system.");
+        }
+    }
+
+    private void validateIfEmailExist(String email) {
+        if (userRepository.existsByEmail(email)) {
+            throw new RuntimeException("Email already registered in the system.");
+        }
     }
 
 }
