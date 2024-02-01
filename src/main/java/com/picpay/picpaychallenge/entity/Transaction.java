@@ -25,12 +25,12 @@ public class Transaction {
     private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
-    private User sender;
+    @JoinColumn(name = "payer_id", nullable = false)
+    private User payer;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
-    private User receiver;
+    @JoinColumn(name = "payee_id", nullable = false)
+    private User payee;
 
     @CreatedDate
     private LocalDateTime timestamp;
