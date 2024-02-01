@@ -2,6 +2,7 @@ package com.picpay.picpaychallenge.service;
 
 import com.picpay.picpaychallenge.entity.User;
 import com.picpay.picpaychallenge.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,12 @@ public class UserService {
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already registered in the system.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found."));
     }
 
 }
