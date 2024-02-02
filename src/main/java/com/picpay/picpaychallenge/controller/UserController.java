@@ -6,6 +6,7 @@ import com.picpay.picpaychallenge.entity.User;
 import com.picpay.picpaychallenge.mapper.UserMapper;
 import com.picpay.picpaychallenge.service.UserService;
 import com.picpay.picpaychallenge.utility.Location;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserRequestDto userRequest) {
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserRequestDto userRequest) {
         User newUser = userMapper.userRequestDtoToUser(userRequest);
         newUser = userService.save(newUser);
 
