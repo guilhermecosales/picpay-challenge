@@ -1,5 +1,6 @@
 package com.picpay.picpaychallenge.mapper;
 
+import com.picpay.picpaychallenge.dto.common.TransactionDto;
 import com.picpay.picpaychallenge.dto.request.TransactionRequestDto;
 import com.picpay.picpaychallenge.entity.Transaction;
 import org.mapstruct.Mapper;
@@ -9,6 +10,6 @@ public interface TransactionMapper {
 
     Transaction transactionRequestDtoToTransaction(TransactionRequestDto from);
 
-    TransactionRequestDto transactionTotransactionRequestDto(Transaction from);
+    TransactionDto transactionToTransactionDto(Transaction from);
 
 }
