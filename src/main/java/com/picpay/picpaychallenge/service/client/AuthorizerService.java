@@ -18,7 +18,7 @@ public class AuthorizerService {
 
     private final AuthorizerClient authorizerClient;
 
-    public boolean isAuthorizedTransaction(Long payerId, Long payeeId, BigDecimal amount) {
+    public boolean isAuthorized(Long payerId, Long payeeId, BigDecimal amount) {
         AuthorizerResponse clientResponse = authorizerClient.authorize();
 
         if (StringUtils.hasText(SUCCESS_MESSAGE)) {
