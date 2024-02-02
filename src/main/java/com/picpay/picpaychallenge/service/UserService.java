@@ -1,6 +1,8 @@
 package com.picpay.picpaychallenge.service;
 
 import com.picpay.picpaychallenge.entity.User;
+import com.picpay.picpaychallenge.exception.custom.DuplicateDocumentException;
+import com.picpay.picpaychallenge.exception.custom.DuplicateEmailException;
 import com.picpay.picpaychallenge.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +27,13 @@ public class UserService {
 
     private void validateIfDocumentExist(String document) {
         if (userRepository.existsByDocument(document)) {
-            throw new RuntimeException("CPF/CNPJ already registered in the system.");
+            throw new DuplicateDocumentException("CPF/CNPJ already registered in the system.");
         }
     }
 
     private void validateIfEmailExist(String email) {
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already registered in the system.");
+            throw new DuplicateEmailException("Email already registered in the system.");
         }
     }
 
