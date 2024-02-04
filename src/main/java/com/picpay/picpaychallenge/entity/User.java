@@ -3,8 +3,11 @@ package com.picpay.picpaychallenge.entity;
 import com.picpay.picpaychallenge.enumerated.UserType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -40,6 +43,14 @@ public class User {
 
     @Column(nullable = false)
     private BigDecimal balance;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(updatable = false)
+    private LocalDateTime updatedAt;
 
     @Override
     public boolean equals(Object o) {
