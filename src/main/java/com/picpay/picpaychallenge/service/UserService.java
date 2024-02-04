@@ -1,5 +1,6 @@
 package com.picpay.picpaychallenge.service;
 
+import com.picpay.picpaychallenge.entity.Transaction;
 import com.picpay.picpaychallenge.entity.User;
 import com.picpay.picpaychallenge.exception.custom.DuplicateDocumentException;
 import com.picpay.picpaychallenge.exception.custom.DuplicateEmailException;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -41,6 +45,19 @@ public class UserService {
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found."));
+    }
+
+    @Transactional
+    public void updateBalances(Transaction transaction) {
+        User payer = userRepository.getReferenceById(transaction.getPayer().getId());
+        User payee = userRepository.getReferenceById(transaction.getPayee().getId());
+
+        final BigDecimal transactionAmount = transaction.getAmount();
+
+        payer.setBalance(payer.getBalance().subtract(transactionAmount));
+        payee.setBalance(payee.getBalance().add(transactionAmount));
+
+        userRepository.saveAll(List.of(payer, payee));
     }
 
 }
