@@ -33,6 +33,7 @@ public class Transaction {
     private User payee;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime timestamp;
 
     @Override
