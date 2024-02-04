@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(value = "notification", url = "${client.notification.host}")
 public interface NotificationClient {
 
-    @GetMapping(path = "${client.notification.sendNotification}")
+    @GetMapping(path = "${client.notification.path}")
     NotificationResponse send();
 
 }
