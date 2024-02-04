@@ -2,7 +2,7 @@ package com.picpay.picpaychallenge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -32,7 +32,7 @@ public class Transaction {
     @JoinColumn(name = "payee_id", nullable = false)
     private User payee;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime timestamp;
 
     @Override
