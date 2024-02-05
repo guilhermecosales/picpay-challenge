@@ -14,21 +14,20 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "wallets")
 @Entity(name = "wallets")
 public class Wallet {
+
+    private static final BigDecimal DEFAULT_BALANCE = BigDecimal.valueOf(0.0);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     @Column(nullable = false)
-    private BigDecimal balance;
+    private BigDecimal balance = DEFAULT_BALANCE;
 
     @OneToOne
-    @NonNull
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
