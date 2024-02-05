@@ -40,8 +40,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @OneToOne(mappedBy = "user")
-    private Wallet wallet;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Wallet wallet = new Wallet();
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
