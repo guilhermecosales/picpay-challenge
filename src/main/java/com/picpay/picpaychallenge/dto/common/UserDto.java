@@ -1,7 +1,6 @@
 package com.picpay.picpaychallenge.dto.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.picpay.picpaychallenge.entity.Wallet;
 import com.picpay.picpaychallenge.enumerated.UserType;
 
 import java.io.Serializable;
@@ -14,6 +13,6 @@ public record UserDto(
         String document,
         String email,
         UserType userType,
-        Wallet wallet
+        WalletDto wallet
 ) implements Serializable {
 }
