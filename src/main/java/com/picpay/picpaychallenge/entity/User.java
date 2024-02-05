@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -41,8 +40,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @Column(nullable = false)
-    private BigDecimal balance;
+    @OneToOne(mappedBy = "user")
+    private Wallet wallet;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
