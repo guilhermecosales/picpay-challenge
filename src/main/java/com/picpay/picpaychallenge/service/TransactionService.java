@@ -2,6 +2,7 @@ package com.picpay.picpaychallenge.service;
 
 import com.picpay.picpaychallenge.entity.Transaction;
 import com.picpay.picpaychallenge.entity.User;
+import com.picpay.picpaychallenge.entity.Wallet;
 import com.picpay.picpaychallenge.exception.custom.InsufficientBalanceException;
 import com.picpay.picpaychallenge.exception.custom.MerchantTransactionException;
 import com.picpay.picpaychallenge.exception.custom.UnauthorizedTransactionException;
@@ -22,6 +23,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final UserService userService;
+    private final WalletService walletService;
 
     private final AuthorizerService authorizerService;
     private final NotificationService notificationService;
@@ -37,7 +39,7 @@ public class TransactionService {
         authorizeTransaction(payer.getId(), payee.getId(), newTransaction.getAmount());
 
         Transaction transactionMade = transactionRepository.save(newTransaction);
-        userService.updateBalances(transactionMade);
+        walletService.updateBalances(payer.getId(), payee.getId(), transactionMade.getAmount());
 
         notificationService.sendEmail(payee.getEmail());
 
@@ -47,8 +49,10 @@ public class TransactionService {
         return transactionMade;
     }
 
-    private void validateBalance(User sender, BigDecimal amount) {
-        if (sender.getBalance().compareTo(amount) < 0) {
+    private void validateBalance(User payer, BigDecimal amount) {
+        Wallet payerWallet = walletService.findByUserId(payer.getId());
+
+        if (payerWallet.getBalance().compareTo(amount) < 0) {
             throw new InsufficientBalanceException("Insufficient balance to make the transaction.");
         }
     }
