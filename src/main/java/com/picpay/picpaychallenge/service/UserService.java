@@ -1,5 +1,6 @@
 package com.picpay.picpaychallenge.service;
 
+import com.picpay.picpaychallenge.entity.Document;
 import com.picpay.picpaychallenge.entity.User;
 import com.picpay.picpaychallenge.exception.custom.DuplicateDocumentException;
 import com.picpay.picpaychallenge.exception.custom.DuplicateEmailException;
@@ -24,14 +25,26 @@ public class UserService {
     }
 
     private void validateNewUser(User newUser) {
-        validateIfDocumentExist(newUser.getDocument());
+        validateIfDocumentDoesNotExist(newUser.getDocument());
         validateIfEmailExist(newUser.getEmail());
     }
 
-    private void validateIfDocumentExist(String document) {
-        if (userRepository.existsByDocument(document)) {
-            throw new DuplicateDocumentException("CPF/CNPJ already registered in the system.");
+    private void validateIfDocumentDoesNotExist(Document document) {
+        if (cpfExists(document) && document.getCpf() != null) {
+            throw new DuplicateDocumentException("CPF already registered.");
         }
+
+        if (cnpjExists(document) && document.getCnpj() != null) {
+            throw new DuplicateDocumentException("CNPJ already registered.");
+        }
+    }
+
+    private boolean cpfExists(Document document) {
+        return userRepository.existsByDocumentCpf(document.getCpf());
+    }
+
+    private boolean cnpjExists(Document document) {
+        return userRepository.existsByDocumentCnpj(document.getCnpj());
     }
 
     private void validateIfEmailExist(String email) {

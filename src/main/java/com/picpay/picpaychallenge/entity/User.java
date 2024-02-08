@@ -28,8 +28,8 @@ public class User {
     @Column(nullable = false, length = 50)
     private String lastName;
 
-    @Column(unique = true, nullable = false, length = 14)
-    private String document;
+    @Embedded
+    private Document document;
 
     @Column(unique = true, nullable = false, length = 60)
     private String email;

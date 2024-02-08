@@ -1,7 +1,9 @@
 package com.picpay.picpaychallenge.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.picpay.picpaychallenge.dto.common.DocumentDto;
 import com.picpay.picpaychallenge.enumerated.UserType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +21,9 @@ public record UserRequestDto(
         @Size(min = 3, max = 50)
         String lastName,
 
-        String document,
+        @Valid
+        @NotNull
+        DocumentDto document,
 
         @Email
         @NotEmpty

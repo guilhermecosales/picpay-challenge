@@ -10,7 +10,7 @@ public record UserDto(
         Long id,
         String firstName,
         String lastName,
-        String document,
+        DocumentDto document,
         String email,
         UserType userType,
         WalletDto wallet
