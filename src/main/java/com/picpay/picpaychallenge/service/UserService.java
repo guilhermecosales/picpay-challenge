@@ -2,6 +2,7 @@ package com.picpay.picpaychallenge.service;
 
 import com.picpay.picpaychallenge.entity.Document;
 import com.picpay.picpaychallenge.entity.User;
+import com.picpay.picpaychallenge.entity.Wallet;
 import com.picpay.picpaychallenge.exception.custom.DuplicateDocumentException;
 import com.picpay.picpaychallenge.exception.custom.DuplicateEmailException;
 import com.picpay.picpaychallenge.repository.UserRepository;
@@ -21,6 +22,11 @@ public class UserService {
     @Transactional
     public User save(User newUser) {
         validateNewUser(newUser);
+
+        Wallet newWallet = new Wallet();
+        newUser.setWallet(newWallet);
+        newWallet.setUser(newUser);
+
         return userRepository.save(newUser);
     }
 
