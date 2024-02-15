@@ -17,9 +17,9 @@ public class WalletController {
     private final WalletService walletService;
     private final WalletMapper walletMapper;
 
-    @PutMapping(path = "/balance/{userId}")
-    public ResponseEntity<WalletDto> addBalance(@PathVariable(name = "userId") Long userId, @RequestBody WalletBalanceRequestDto request) {
-        Wallet walletWithBalanceUpdated = walletService.addBalance(userId, request.balance());
+    @PutMapping(path = "{walletId}/balance")
+    public ResponseEntity<WalletDto> addBalance(@PathVariable(name = "walletId") Long walletId, @RequestBody WalletBalanceRequestDto request) {
+        Wallet walletWithBalanceUpdated = walletService.addBalance(walletId, request.balance());
         WalletDto response = walletMapper.walletToWalletDto(walletWithBalanceUpdated);
         return ResponseEntity.ok().body(response);
     }

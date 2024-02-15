@@ -50,7 +50,7 @@ public class TransactionService {
     }
 
     private void validateBalance(User payer, BigDecimal amount) {
-        Wallet payerWallet = walletService.findWalletByUserId(payer.getId());
+        Wallet payerWallet = walletService.findByUserId(payer.getId());
 
         if (payerWallet.getBalance().compareTo(amount) < 0) {
             throw new InsufficientBalanceException("Insufficient balance to make the transaction.");
