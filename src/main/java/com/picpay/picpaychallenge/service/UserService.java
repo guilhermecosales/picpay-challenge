@@ -36,21 +36,21 @@ public class UserService {
     }
 
     private void validateIfDocumentDoesNotExist(Document document) {
-        if (cpfExists(document) && document.getCpf() != null) {
+        if (document.getCpf() != null && cpfExists(document.getCpf())) {
             throw new DuplicateDocumentException("CPF already registered.");
         }
 
-        if (cnpjExists(document) && document.getCnpj() != null) {
+        if (document.getCnpj() != null && cnpjExists(document.getCnpj())) {
             throw new DuplicateDocumentException("CNPJ already registered.");
         }
     }
 
-    private boolean cpfExists(Document document) {
-        return userRepository.existsByDocumentCpf(document.getCpf());
+    private boolean cpfExists(String cpf) {
+        return userRepository.existsByDocumentCpf(cpf);
     }
 
-    private boolean cnpjExists(Document document) {
-        return userRepository.existsByDocumentCnpj(document.getCnpj());
+    private boolean cnpjExists(String cnpj) {
+        return userRepository.existsByDocumentCnpj(cnpj);
     }
 
     private void validateIfEmailExist(String email) {
