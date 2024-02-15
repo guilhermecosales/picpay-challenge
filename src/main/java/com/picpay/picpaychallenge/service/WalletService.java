@@ -19,9 +19,21 @@ public class WalletService {
     private final WalletRepository walletRepository;
 
     @Transactional(readOnly = true)
-    public Wallet findByUserId(Long userId) {
+    public Wallet findWalletByUserId(Long userId) {
+        return findByUserId(userId);
+    }
+
+    private Wallet findByUserId(Long userId) {
         return walletRepository.findByUserId(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Wallet not found."));
+                .orElseThrow(() -> new EntityNotFoundException("Wallet not found for user with ID: " + userId));
+    }
+
+    @Transactional
+    public Wallet addBalance(Long userId, BigDecimal amount) {
+        Wallet wallet = findByUserId(userId);
+        wallet.setBalance(wallet.getBalance().add(amount));
+
+        return walletRepository.save(wallet);
     }
 
     @Transactional
