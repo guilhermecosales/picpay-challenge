@@ -34,6 +34,19 @@ class WalletRepositoryTest {
     }
 
     @Test
+    void testGetReferenceByUserId_whenGivenExistingUserId_thenReturnWallet() {
+        User storedUser = testEntityManager.persistAndFlush(user);
+        Wallet wallet = walletRepository.getReferenceByUserId(storedUser.getId());
+        Assertions.assertNotNull(wallet);
+    }
+
+    @Test
+    void testGetReferenceByUserId_whenGivenNonExistentUserId_thenThrowException() {
+        Wallet wallet = walletRepository.getReferenceByUserId(2L);
+        Assertions.assertNull(wallet);
+    }
+
+    @Test
     void testFindByUserId_whenGivenExistingUserId_thenReturnOptionalWallet() {
         User storedUser = testEntityManager.persistAndFlush(user);
 
