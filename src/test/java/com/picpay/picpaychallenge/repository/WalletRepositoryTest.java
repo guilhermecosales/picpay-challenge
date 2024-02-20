@@ -41,7 +41,7 @@ class WalletRepositoryTest {
     }
 
     @Test
-    void testGetReferenceByUserId_whenGivenNonExistentUserId_thenThrowException() {
+    void testGetReferenceByUserId_whenGivenNonExistentUserId_thenReturnNull() {
         Wallet wallet = walletRepository.getReferenceByUserId(2L);
         Assertions.assertNull(wallet);
     }
