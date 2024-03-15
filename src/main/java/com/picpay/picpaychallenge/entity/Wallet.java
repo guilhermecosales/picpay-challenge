@@ -27,6 +27,7 @@ public class Wallet {
     @Column(nullable = false)
     private BigDecimal balance = DEFAULT_BALANCE;
 
+    @ToString.Exclude
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;

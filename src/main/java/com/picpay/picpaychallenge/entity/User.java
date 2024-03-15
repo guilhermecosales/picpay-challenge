@@ -40,6 +40,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Wallet wallet;
 
