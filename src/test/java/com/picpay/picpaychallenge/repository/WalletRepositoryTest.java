@@ -23,11 +23,12 @@ class WalletRepositoryTest {
     private WalletRepository walletRepository;
 
     private User user;
-    private static final Document document = new Document("76599342019", "44125012000118");
-    private static final String hashedPassword = "$2a$12$4mWre8utnQD.vYfSBAw7Ku4dUxtEeMqn03HYTwWhaiyX2gbFPfDFe";
 
     @BeforeEach
     void setUp() {
+        String hashedPassword = "$2a$12$4mWre8utnQD.vYfSBAw7Ku4dUxtEeMqn03HYTwWhaiyX2gbFPfDFe";
+        Document document = new Document("76599342019", "44125012000118");
+
         user = new User(
                 null,
                 "Carolina",
