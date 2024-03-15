@@ -1,9 +1,9 @@
 package com.picpay.picpaychallenge.repository;
 
+import com.picpay.picpaychallenge.entity.Document;
 import com.picpay.picpaychallenge.entity.User;
 import com.picpay.picpaychallenge.entity.Wallet;
-import com.picpay.picpaychallenge.factory.UserFactory;
-import com.picpay.picpaychallenge.factory.WalletFactory;
+import com.picpay.picpaychallenge.enumerated.UserType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +23,26 @@ class WalletRepositoryTest {
     private WalletRepository walletRepository;
 
     private User user;
+    private Wallet wallet;
+    private static final Document document = new Document("76599342019", "44125012000118");
+    private static final String hashedPassword = "$2a$12$4mWre8utnQD.vYfSBAw7Ku4dUxtEeMqn03HYTwWhaiyX2gbFPfDFe";
 
     @BeforeEach
     void setUp() {
-        user = UserFactory.createCommonUserWithoutWallet();
-        Wallet wallet = WalletFactory.createWalletWithoutUser();
+        user = new User(
+                null,
+                "Carolina",
+                "Herrera",
+                document,
+                "carolina.herrera@icloud.com",
+                hashedPassword,
+                UserType.COMMON,
+                null,
+                null,
+                null
+        );
+
+        wallet = new Wallet();
 
         user.setWallet(wallet);
         wallet.setUser(user);
