@@ -23,7 +23,6 @@ class WalletRepositoryTest {
     private WalletRepository walletRepository;
 
     private User user;
-    private Wallet wallet;
     private static final Document document = new Document("76599342019", "44125012000118");
     private static final String hashedPassword = "$2a$12$4mWre8utnQD.vYfSBAw7Ku4dUxtEeMqn03HYTwWhaiyX2gbFPfDFe";
 
@@ -42,7 +41,7 @@ class WalletRepositoryTest {
                 null
         );
 
-        wallet = new Wallet();
+        Wallet wallet = new Wallet();
 
         user.setWallet(wallet);
         wallet.setUser(user);
