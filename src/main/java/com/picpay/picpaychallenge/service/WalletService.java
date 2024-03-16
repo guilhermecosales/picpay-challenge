@@ -1,6 +1,7 @@
 package com.picpay.picpaychallenge.service;
 
 import com.picpay.picpaychallenge.entity.Wallet;
+import com.picpay.picpaychallenge.exception.custom.WalletException;
 import com.picpay.picpaychallenge.repository.WalletRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,14 @@ public class WalletService {
 
     @Transactional
     public Wallet addBalance(Long walletId, BigDecimal amount) {
-        Wallet wallet = walletRepository.getReferenceById(walletId);
-        wallet.setBalance(wallet.getBalance().add(amount));
-
-        return walletRepository.save(wallet);
+        try {
+            Wallet wallet = walletRepository.getReferenceById(walletId);
+            wallet.setBalance(wallet.getBalance().add(amount));
+            return walletRepository.save(wallet);
+        } catch (EntityNotFoundException e) {
+            log.info("Error adding balance to Wallet: ", e);
+            throw new WalletException("Wallet not found with ID " + walletId);
+        }
     }
 
     @Transactional
