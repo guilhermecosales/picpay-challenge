@@ -22,7 +22,7 @@ public class WalletService {
     @Transactional(readOnly = true)
     public Wallet findByUserId(Long userId) {
         return walletRepository.findByUserId(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Wallet not found for user with ID: " + userId));
+                .orElseThrow(() -> new WalletException("Wallet not found for user with ID: " + userId));
     }
 
     @Transactional
