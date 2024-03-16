@@ -33,7 +33,7 @@ public class WalletService {
             return walletRepository.save(wallet);
         } catch (EntityNotFoundException e) {
             log.info("Error adding balance to Wallet: ", e);
-            throw new WalletException("Wallet not found with ID " + walletId);
+            throw new WalletException("Wallet wit ID " + walletId + " not found.");
         }
     }
 
