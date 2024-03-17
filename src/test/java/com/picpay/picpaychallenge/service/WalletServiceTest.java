@@ -3,7 +3,6 @@ package com.picpay.picpaychallenge.service;
 import com.picpay.picpaychallenge.entity.Wallet;
 import com.picpay.picpaychallenge.exception.custom.WalletException;
 import com.picpay.picpaychallenge.repository.WalletRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +46,7 @@ class WalletServiceTest {
     void testFindByUserId_whenGivenNotExistingUserId_throwEntityNotFoundException() {
         long userId = 1L;
 
-        when(walletRepository.findByUserId(anyLong())).thenThrow(EntityNotFoundException.class);
+        when(walletRepository.findByUserId(anyLong())).thenThrow(WalletException.class);
 
         Assertions.assertThrows(WalletException.class, () -> walletService.findByUserId(userId));
         Mockito.verify(walletRepository, times(1)).findByUserId(anyLong());
